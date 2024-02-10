@@ -1,0 +1,46 @@
+@startuml
+
+|Main|
+start
+:Initialize n = 6;
+:Call resultFibonacci(n);
+
+|IterativeImplement|
+partition "resultFibonacci(n)" {
+  :Check if n < 0?;
+  if (n < 0) then (<color:red> yes)
+    :<color:red> Throw IllegalArgumentException;
+  else (no)
+    :Call iterativeFibonacci(n);
+  endif
+}
+
+partition "iterativeFibonacci(n)" {
+  :Check if n <= 1?;
+  if (n <= 1) then (yes)
+    :Return n;
+  else (no)
+    :Initialize prev = 0, curr = 1;
+    :Loop from i = 2 to n;
+      :Calculate temp = curr;
+      :Update curr = curr + prev;
+      :Update prev = temp;
+    end
+    :Return curr;
+  endif
+}
+
+|Logger|
+partition "log.info()" {
+  :Log "The n-th Fibonacci number is: result";
+}
+
+|<color:red>Exception Handling|
+partition <color:red>"Catch IllegalArgumentException" {
+  :<color:red>Log warning with error message;
+}
+
+|Main|
+stop
+
+@enduml

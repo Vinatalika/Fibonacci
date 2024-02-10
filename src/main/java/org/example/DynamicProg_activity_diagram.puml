@@ -1,0 +1,39 @@
+@startuml
+
+|Main|
+start
+:Initialize n = 8;
+:Call fibonacci(n);
+:Display result;
+
+|DynamicProgramming|
+partition #pink "fibonacci(n)" {
+  :Check if n <= 1?;
+  if (n <= 1) then (yes)
+    :Return n;
+  else (no)
+    :Check if memo containsKey(n)?;
+    if (memo.containsKey(n)) then (yes)
+      :Return memo.get(n);
+    else (no)
+      :Calculate fib = fibonacci(n - 1) + fibonacci(n - 2);
+      :Store fib in memo;
+      :Return fib;
+    endif
+  endif
+}
+
+|Logger|
+partition #palegreen "logger.info()" {
+  :Log "The n-th Fibonacci number is: result";
+}
+
+|<color:red>Exception Handling|
+partition <color:red>"Catch IllegalArgumentException" {
+  :<color:red>Log warning with error message;
+}
+
+|Main|
+stop
+
+@enduml

@@ -1,0 +1,33 @@
+@startuml
+
+|Main|
+start
+:Initialize n = 6;
+:Call recursiveFibonacci(n);
+
+|RecursiveImplement|
+partition #pink "recursiveFibonacci(n)" {
+  :Check if n <= 1?;
+  if (n <= 1) then (yes)
+    :Return n;
+  else (no)
+    :Call recursiveFibonacci(n - 1);
+    :Call recursiveFibonacci(n - 2);
+    :Return sum of results;
+  endif
+}
+
+|Logger|
+partition #palegreen "log.info()" {
+  :Log <color:green>"The n-th Fibonacci number is: result";
+}
+
+|<color:red>Exception Handling|
+partition <color:red>"Catch IllegalArgumentException" {
+  :<color:red>Log warning with error message;
+}
+
+|Main|
+stop
+
+@enduml
